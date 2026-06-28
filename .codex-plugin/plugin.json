@@ -1,0 +1,36 @@
+{
+  "name": "atelier",
+  "version": "0.1.0",
+  "description": "Agentic design suite for brand concepting, design-system extraction, logo production, image optimization, visual QA, and asset handoff.",
+  "author": {
+    "name": "Cyris"
+  },
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "brand",
+    "design-system",
+    "logo",
+    "assets",
+    "visual-qa"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Atelier",
+    "shortDescription": "Agentic design suite and asset workshop.",
+    "longDescription": "Atelier routes professional design tasks across brand concepting, design-system extraction, logo and icon production, image optimization, token handoff, UI visual QA, and final asset packaging.",
+    "developerName": "Cyris",
+    "category": "Productivity",
+    "capabilities": [
+      "Write",
+      "Files",
+      "Design"
+    ],
+    "defaultPrompt": [
+      "Use Atelier to turn this visual reference into a design system.",
+      "Use Atelier to create a brand direction and logo asset plan.",
+      "Use Atelier to optimize and package these design assets."
+    ],
+    "brandColor": "#A7F3A2"
+  }
+}

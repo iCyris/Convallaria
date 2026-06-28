@@ -1,0 +1,4 @@
+interface:
+  display_name: "Atelier"
+  short_description: "Agentic design suite and asset workshop"
+  default_prompt: "Use $atelier to route my design task and produce polished brand, system, logo, or asset deliverables."

@@ -1,0 +1,19 @@
+{
+  "schema": "atelier.asset-manifest.v1",
+  "project": {
+    "name": "",
+    "slug": "",
+    "createdAt": ""
+  },
+  "inputs": [],
+  "outputs": [],
+  "tokens": {},
+  "assets": {
+    "logo": {},
+    "images": {},
+    "screenshots": {}
+  },
+  "assumptions": [],
+  "openQuestions": [],
+  "nextActions": []
+}

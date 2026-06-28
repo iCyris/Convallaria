@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="{{LANG}}" data-system-theme="{{SYSTEM_THEME}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{REPORT_TITLE}} — Design System Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- {{GOOGLE_FONTS_LINK}} -->
+  <style>
+    /* ============================================================
+       DESIGN SYSTEM REPORT — BASE TEMPLATE
+       Do NOT modify structural CSS or scroll behavior.
+       Populate content in the {{PLACEHOLDER}} slots only.
+       ============================================================ */
+
+    /* --- CSS Custom Properties (Injected from extracted design) --- */
+    :root {
+      /* ── PRIMARY COLORS — Populate from the extracted palette ── */
+      --ds-color-primary: {{COLOR_PRIMARY}};
+      --ds-color-primary-light: {{COLOR_PRIMARY_LIGHT}};
+      --ds-color-secondary: {{COLOR_SECONDARY}};
+      --ds-color-accent: {{COLOR_ACCENT}};
+
+      /* ── SURFACES ── */
+      --ds-color-bg: {{COLOR_BG}};
+      --ds-color-bg-alt: {{COLOR_BG_ALT}};
+      --ds-color-surface: {{COLOR_SURFACE}};
+      --ds-color-surface-elevated: {{COLOR_SURFACE_ELEVATED}};
+
+      /* ── TEXT ── */
+      --ds-color-text-primary: {{COLOR_TEXT_PRIMARY}};
+      --ds-color-text-secondary: {{COLOR_TEXT_SECONDARY}};
+      --ds-color-text-tertiary: {{COLOR_TEXT_TERTIARY}};
+      --ds-color-text-inverse: {{COLOR_TEXT_INVERSE}};
+
+      /* ── BORDERS & DECORATION ── */
+      --ds-color-border: {{COLOR_BORDER}};
+      --ds-color-border-strong: {{COLOR_BORDER_STRONG}};
+
+      /* ── SEMANTIC ── */
+      --ds-color-success: {{COLOR_SUCCESS}};
+      --ds-color-warning: {{COLOR_WARNING}};
+      --ds-color-error: {{COLOR_ERROR}};
+      --ds-color-info: {{COLOR_INFO}};
+
+      /* ── TYPOGRAPHY — Font Families ── */
+      --ds-font-heading: {{FONT_HEADING}};
+      --ds-font-body: {{FONT_BODY}};
+      --ds-font-mono: {{FONT_MONO}};
+
+      /* ── TYPOGRAPHY — Font Sizes ── */
+      --ds-font-size-xs: {{FONT_SIZE_XS}};
+      --ds-font-size-sm: {{FONT_SIZE_SM}};
+      --ds-font-size-base: {{FONT_SIZE_BASE}};
+      --ds-font-size-lg: {{FONT_SIZE_LG}};
+      --ds-font-size-xl: {{FONT_SIZE_XL}};
+      --ds-font-size-2xl: {{FONT_SIZE_2XL}};
+      --ds-font-size-3xl: {{FONT_SIZE_3XL}};
+      --ds-font-size-4xl: {{FONT_SIZE_4XL}};
+
+      /* ── TYPOGRAPHY — Font Weights ── */
+      --ds-font-weight-light: {{FONT_WEIGHT_LIGHT}};
+      --ds-font-weight-regular: {{FONT_WEIGHT_REGULAR}};
+      --ds-font-weight-medium: {{FONT_WEIGHT_MEDIUM}};
+      --ds-font-weight-semibold: {{FONT_WEIGHT_SEMIBOLD}};
+      --ds-font-weight-bold: {{FONT_WEIGHT_BOLD}};
+      --ds-font-weight-extrabold: {{FONT_WEIGHT_EXTRABOLD}};
+
+      /* ── TYPOGRAPHY — Line Heights ── */
+      --ds-leading-none: {{LEADING_NONE}};
+      --ds-leading-tight: {{LEADING_TIGHT}};
+      --ds-leading-snug: {{LEADING_SNUG}};
+      --ds-leading-normal: {{LEADING_NORMAL}};
+      --ds-leading-relaxed: {{LEADING_RELAXED}};
+      --ds-leading-loose: {{LEADING_LOOSE}};
+
+      /* ── TYPOGRAPHY — Letter Spacing ── */
+      --ds-tracking-tighter: {{TRACKING_TIGHTER}};
+      --ds-tracking-tight: {{TRACKING_TIGHT}};
+      --ds-tracking-normal: {{TRACKING_NORMAL}};
+      --ds-tracking-wide: {{TRACKING_WIDE}};
+      --ds-tracking-wider: {{TRACKING_WIDER}};
+      --ds-tracking-widest: {{TRACKING_WIDEST}};
+
+      /* ── SPACING (full scale) ── */
+      --ds-spacing-0: {{SPACING_0}};
+      --ds-spacing-px: {{SPACING_PX}};
+      --ds-spacing-0-5: {{SPACING_0_5}};
+      --ds-spacing-1: {{SPACING_1}};
+      --ds-spacing-2: {{SPACING_2}};
+      --ds-spacing-3: {{SPACING_3}};
+      --ds-spacing-4: {{SPACING_4}};
+      --ds-spacing-5: {{SPACING_5}};
+      --ds-spacing-6: {{SPACING_6}};
+      --ds-spacing-8: {{SPACING_8}};
+      --ds-spacing-10: {{SPACING_10}};
+      --ds-spacing-12: {{SPACING_12}};
+      --ds-spacing-16: {{SPACING_16}};
+      --ds-spacing-20: {{SPACING_20}};
+      --ds-spacing-24: {{SPACING_24}};
+      --ds-spacing-unit: {{SPACING_UNIT}};
+
+      /* ── BORDER RADIUS ── */
+      --ds-radius-none: {{RADIUS_NONE}};
+      --ds-radius-sm: {{RADIUS_SM}};
+      --ds-radius-md: {{RADIUS_MD}};
+      --ds-radius-lg: {{RADIUS_LG}};
+      --ds-radius-xl: {{RADIUS_XL}};
+      --ds-radius-2xl: {{RADIUS_2XL}};
+      --ds-radius-full: {{RADIUS_FULL}};
+
+      /* ── BORDER WIDTH ── */
+      --ds-border-width-none: {{BORDER_WIDTH_NONE}};
+      --ds-border-width-thin: {{BORDER_WIDTH_THIN}};
+      --ds-border-width-medium: {{BORDER_WIDTH_MEDIUM}};
+      --ds-border-width-thick: {{BORDER_WIDTH_THICK}};
+
+      /* ── SHADOWS ── */
+      --ds-shadow-sm: {{SHADOW_SM}};
+      --ds-shadow-md: {{SHADOW_MD}};
+      --ds-shadow-lg: {{SHADOW_LG}};
+      --ds-shadow-xl: {{SHADOW_XL}};
+
+      /* ── OPACITY ── */
+      --ds-opacity-0: {{OPACITY_0}};
+      --ds-opacity-hover: {{OPACITY_HOVER}};
+      --ds-opacity-disabled: {{OPACITY_DISABLED}};
+      --ds-opacity-overlay-light: {{OPACITY_OVERLAY_LIGHT}};
+      --ds-opacity-overlay-medium: {{OPACITY_OVERLAY_MEDIUM}};
+      --ds-opacity-secondary: {{OPACITY_SECONDARY}};
+      --ds-opacity-overlay-heavy: {{OPACITY_OVERLAY_HEAVY}};
+      --ds-opacity-full: {{OPACITY_FULL}};
+
+      /* ── Z-INDEX ── */
+      --ds-z-deep: {{Z_DEEP}};
+      --ds-z-base: {{Z_BASE}};
+      --ds-z-dropdown: {{Z_DROPDOWN}};
+      --ds-z-sticky: {{Z_STICKY}};
+      --ds-z-overlay: {{Z_OVERLAY}};
+      --ds-z-modal: {{Z_MODAL}};
+      --ds-z-popover: {{Z_POPOVER}};
+      --ds-z-tooltip: {{Z_TOOLTIP}};
+      --ds-z-toast: {{Z_TOAST}};
+      --ds-z-max: {{Z_MAX}};
+
+      /* ── MOTION / TRANSITIONS ── */
+      --ds-duration-instant: {{DURATION_INSTANT}};
+      --ds-duration-fast: {{DURATION_FAST}};
+      --ds-duration-normal: {{DURATION_NORMAL}};
+      --ds-duration-moderate: {{DURATION_MODERATE}};
+      --ds-duration-slow: {{DURATION_SLOW}};
+      --ds-duration-slower: {{DURATION_SLOWER}};
+      --ds-easing-default: {{EASING_DEFAULT}};
+      --ds-easing-in: {{EASING_IN}};
+      --ds-easing-out: {{EASING_OUT}};
+      --ds-easing-in-out: {{EASING_IN_OUT}};
+      --ds-easing-bounce: {{EASING_BOUNCE}};
+
+      /* ── FOCUS RING ── */
+      --ds-focus-ring-width: {{FOCUS_RING_WIDTH}};
+      --ds-focus-ring-offset: {{FOCUS_RING_OFFSET}};
+      --ds-focus-ring-color: {{FOCUS_RING_COLOR}};
+      --ds-focus-ring-style: {{FOCUS_RING_STYLE}};
+
+      /* ── CONTAINER / BREAKPOINT WIDTHS ── */
+      --ds-container-sm: {{CONTAINER_SM}};
+      --ds-container-md: {{CONTAINER_MD}};
+      --ds-container-lg: {{CONTAINER_LG}};
+      --ds-container-xl: {{CONTAINER_XL}};
+      --ds-container-2xl: {{CONTAINER_2XL}};
+
+      /* ── SIZING ── */
+      --ds-size-icon-xs: {{SIZE_ICON_XS}};
+      --ds-size-icon-sm: {{SIZE_ICON_SM}};
+      --ds-size-icon-md: {{SIZE_ICON_MD}};
+      --ds-size-icon-lg: {{SIZE_ICON_LG}};
+      --ds-size-icon-xl: {{SIZE_ICON_XL}};
+      --ds-size-touch-target: {{SIZE_TOUCH_TARGET}};
+      --ds-size-avatar-sm: {{SIZE_AVATAR_SM}};
+      --ds-size-avatar-md: {{SIZE_AVATAR_MD}};
+      --ds-size-avatar-lg: {{SIZE_AVATAR_LG}};
+
+      /* ── GRADIENTS ── */
+      --ds-gradient-primary: {{GRADIENT_PRIMARY}};
+      --ds-gradient-surface: {{GRADIENT_SURFACE}};
+
+      /* ── ASPECT RATIOS ── */
+      --ds-aspect-square: {{ASPECT_SQUARE}};
+      --ds-aspect-video: {{ASPECT_VIDEO}};
+      --ds-aspect-photo: {{ASPECT_PHOTO}};
+      --ds-aspect-portrait: {{ASPECT_PORTRAIT}};
+      --ds-aspect-wide: {{ASPECT_WIDE}};
+
+      /* ── SCROLLBAR ── */
+      --ds-scrollbar-width: {{SCROLLBAR_WIDTH}};
+      --ds-scrollbar-track: {{SCROLLBAR_TRACK}};
+      --ds-scrollbar-thumb: {{SCROLLBAR_THUMB}};
+      --ds-scrollbar-radius: {{SCROLLBAR_RADIUS}};
+
+      /* ── TEXT DECORATION ── */
+      --ds-decoration-thickness: {{DECORATION_THICKNESS}};
+      --ds-decoration-offset: {{DECORATION_OFFSET}};
+      --ds-decoration-color: {{DECORATION_COLOR}};
+    }
+
+    /* --- Reset --- */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--ds-font-body);
+      color: var(--ds-color-text-primary);
+      background: var(--ds-color-bg);
+      overflow-x: hidden;
+    }
+
+    /* --- Scroll Snap Container --- */
+    .scroll-container {
+      height: 100vh;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+    }
+
+    /* --- Section Base --- */
+    .ds-section {
+      min-height: 100vh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ds-section__inner {
+      max-width: var(--ds-container-xl);
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* --- Section Themes --- */
+    .ds-section--light {
+      background: var(--ds-color-bg);
+      color: var(--ds-color-text-primary);
+    }
+
+    .ds-section--dark {
+      background: var(--ds-color-text-primary);
+      color: var(--ds-color-bg);
+    }
+
+    .ds-section--alt {
+      background: var(--ds-color-bg-alt);
+      color: var(--ds-color-text-primary);
+    }
+
+    .ds-section--primary {
+      background: var(--ds-color-primary);
+      color: var(--ds-color-text-inverse);
+    }
+
+    /* --- Dark System Theme ---
+       When the extracted design system is dark-themed, ALL sections
+       use dark backgrounds. Visual rhythm is created through different
+       shades: bg → bg-alt → surface, instead of light/dark alternation.
+       Activated by setting data-system-theme="dark" on <html>.
+    */
+    [data-system-theme="dark"] .ds-section--light {
+      background: var(--ds-color-bg);
+      color: var(--ds-color-text-primary);
+    }
+
+    [data-system-theme="dark"] .ds-section--dark {
+      background: var(--ds-color-surface);
+      color: var(--ds-color-text-primary);
+    }
+
+    [data-system-theme="dark"] .ds-section--alt {
+      background: var(--ds-color-bg-alt);
+      color: var(--ds-color-text-primary);
+    }
+
+    [data-system-theme="dark"] .ds-section--primary {
+      background: var(--ds-color-primary);
+      color: var(--ds-color-text-inverse);
+    }
+
+    /* Nav dots in dark system theme should always be light */
+    [data-system-theme="dark"] .ds-nav__dot {
+      background: var(--ds-color-text-primary);
+    }
+
+    [data-system-theme="dark"] .ds-nav__dot[data-section-theme="dark"] {
+      background: var(--ds-color-text-primary);
+    }
+
+    /* --- Typography --- */
+    .ds-heading-hero {
+      font-family: var(--ds-font-heading);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: var(--ds-font-weight-bold);
+      line-height: var(--ds-leading-tight);
+      letter-spacing: var(--ds-tracking-tight);
+      margin-bottom: var(--ds-spacing-6);
+    }
+
+    .ds-heading-section {
+      font-family: var(--ds-font-heading);
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      font-weight: var(--ds-font-weight-semibold);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--ds-spacing-4);
+    }
+
+    .ds-heading-sub {
+      font-family: var(--ds-font-heading);
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: var(--ds-font-weight-medium);
+      line-height: var(--ds-leading-snug);
+      margin-bottom: var(--ds-spacing-3);
+    }
+
+    .ds-text-body {
+      font-family: var(--ds-font-body);
+      font-size: var(--ds-font-size-base);
+      line-height: 1.6;
+      max-width: 65ch;
+    }
+
+    .ds-text-caption {
+      font-family: var(--ds-font-body);
+      font-size: var(--ds-font-size-sm);
+      line-height: var(--ds-leading-normal);
+      opacity: var(--ds-opacity-secondary);
+    }
+
+    .ds-text-label {
+      font-family: var(--ds-font-body);
+      font-size: var(--ds-font-size-xs);
+      font-weight: var(--ds-font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: var(--ds-tracking-wider);
+      opacity: var(--ds-opacity-overlay-light);
+    }
+
+    .ds-text-mono {
+      font-family: var(--ds-font-mono);
+      font-size: var(--ds-font-size-sm);
+      line-height: var(--ds-leading-normal);
+    }
+
+    /* --- Navigation Dots --- */
+    .ds-nav {
+      position: fixed;
+      right: var(--ds-spacing-6);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: var(--ds-z-toast);
+      display: flex;
+      flex-direction: column;
+      gap: var(--ds-spacing-3);
+    }
+
+    .ds-nav__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: var(--ds-radius-full);
+      background: var(--ds-color-text-primary);
+      opacity: 0.25;
+      cursor: pointer;
+      transition: opacity var(--ds-duration-moderate) var(--ds-easing-default), transform var(--ds-duration-moderate) var(--ds-easing-default);
+      border: none;
+      padding: 0;
+    }
+
+    .ds-nav__dot:hover {
+      opacity: var(--ds-opacity-overlay-light);
+      transform: scale(1.3);
+    }
+
+    .ds-nav__dot--active {
+      opacity: var(--ds-opacity-full);
+      transform: scale(1.4);
+    }
+
+    .ds-nav__dot[data-section-theme="dark"] {
+      background: var(--ds-color-bg);
+    }
+
+    /* --- Color Swatches --- */
+    .ds-color-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .ds-color-swatch {
+      border-radius: var(--ds-radius-lg);
+      overflow: hidden;
+      background: var(--ds-color-surface);
+      box-shadow: var(--ds-shadow-sm);
+      transition: transform var(--ds-duration-moderate) var(--ds-easing-default), box-shadow var(--ds-duration-moderate) var(--ds-easing-default);
+    }
+
+    .ds-color-swatch:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--ds-shadow-md);
+    }
+
+    .ds-color-swatch__preview {
+      height: 120px;
+      width: 100%;
+    }
+
+    .ds-color-swatch__info {
+      padding: 1rem;
+    }
+
+    .ds-color-swatch__name {
+      font-weight: var(--ds-font-weight-semibold);
+      font-size: 0.9375rem;
+      margin-bottom: var(--ds-spacing-1);
+    }
+
+    .ds-color-swatch__value {
+      font-family: var(--ds-font-mono);
+      font-size: 0.8125rem;
+      opacity: var(--ds-opacity-overlay-light);
+    }
+
+    .ds-color-swatch__role {
+      font-size: 0.8125rem;
+      opacity: var(--ds-opacity-disabled);
+      margin-top: var(--ds-spacing-1);
+    }
+
+    /* --- Typography Specimens --- */
+    .ds-type-specimen {
+      margin-bottom: var(--ds-spacing-8);
+      padding-bottom: var(--ds-spacing-8);
+      border-bottom: var(--ds-border-width-thin) solid var(--ds-color-border);
+    }
+
+    .ds-type-specimen:last-child {
+      border-bottom: none;
+    }
+
+    .ds-type-specimen__label {
+      font-size: var(--ds-font-size-xs);
+      font-weight: var(--ds-font-weight-medium);
+      text-transform: uppercase;
+      letter-spacing: var(--ds-tracking-wider);
+      opacity: var(--ds-opacity-disabled);
+      margin-bottom: var(--ds-spacing-2);
+    }
+
+    .ds-type-specimen__meta {
+      font-family: var(--ds-font-mono);
+      font-size: var(--ds-font-size-xs);
+      opacity: var(--ds-opacity-disabled);
+      margin-top: var(--ds-spacing-2);
+    }
+
+    /* --- Token Table --- */
+    .ds-token-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+      margin-top: 1.5rem;
+      color: inherit;
+    }
+
+    .ds-token-table th {
+      text-align: left;
+      font-weight: var(--ds-font-weight-semibold);
+      padding: var(--ds-spacing-3) var(--ds-spacing-4);
+      border-bottom: var(--ds-border-width-medium) solid currentColor;
+      font-size: var(--ds-font-size-xs);
+      text-transform: uppercase;
+      letter-spacing: var(--ds-tracking-wide);
+      opacity: var(--ds-opacity-overlay-light);
+      color: inherit;
+    }
+
+    .ds-token-table td {
+      padding: var(--ds-spacing-2) var(--ds-spacing-4);
+      border-bottom: var(--ds-border-width-thin) solid currentColor;
+      border-bottom-color: color-mix(in srgb, currentColor 20%, transparent);
+      vertical-align: middle;
+      color: inherit;
+    }
+
+    .ds-token-table th {
+      border-bottom-color: color-mix(in srgb, currentColor 40%, transparent);
+    }
+
+    .ds-token-table tr:hover td {
+      background: rgba(128, 128, 128, 0.08);
+    }
+
+    .ds-token-preview {
+      display: inline-block;
+      width: var(--ds-size-icon-lg);
+      height: var(--ds-size-icon-lg);
+      border-radius: var(--ds-radius-sm);
+      vertical-align: middle;
+      margin-right: var(--ds-spacing-2);
+      border: var(--ds-border-width-thin) solid color-mix(in srgb, currentColor 25%, transparent);
+    }
+
+    /* --- Component Showcase --- */
+    .ds-component-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .ds-component-card {
+      background: var(--ds-color-surface);
+      border: var(--ds-border-width-thin) solid var(--ds-color-border);
+      border-radius: var(--ds-radius-lg);
+      padding: var(--ds-spacing-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--ds-spacing-4);
+    }
+
+    .ds-component-card__title {
+      font-weight: var(--ds-font-weight-semibold);
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: var(--ds-tracking-wide);
+      opacity: var(--ds-opacity-disabled);
+    }
+
+    .ds-component-card__preview {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--ds-spacing-3);
+      min-height: 60px;
+    }
+
+    /* --- Composite Pattern Showcase --- */
+    .ds-composite-showcase {
+      border: var(--ds-border-width-thin) solid var(--ds-color-border);
+      border-radius: var(--ds-radius-xl);
+      overflow: hidden;
+      margin-top: var(--ds-spacing-8);
+      background: var(--ds-color-surface);
+    }
+
+    .ds-composite-showcase__header {
+      padding: var(--ds-spacing-4) var(--ds-spacing-6);
+      border-bottom: var(--ds-border-width-thin) solid var(--ds-color-border);
+      font-weight: var(--ds-font-weight-semibold);
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: var(--ds-tracking-wide);
+      opacity: var(--ds-opacity-disabled);
+    }
+
+    .ds-composite-showcase__body {
+      padding: var(--ds-spacing-8);
+    }
+
+    /* --- Guidelines Grid --- */
+    .ds-guidelines-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .ds-guideline {
+      padding: var(--ds-spacing-5);
+      border-radius: var(--ds-radius-md);
+      border: var(--ds-border-width-thin) solid var(--ds-color-border);
+    }
+
+    .ds-guideline--do {
+      border-left: var(--ds-border-width-thick) solid var(--ds-color-success);
+    }
+
+    .ds-guideline--dont {
+      border-left: var(--ds-border-width-thick) solid var(--ds-color-error);
+    }
+
+    .ds-guideline__icon {
+      font-size: var(--ds-font-size-xl);
+      margin-bottom: var(--ds-spacing-2);
+    }
+
+    .ds-guideline__text {
+      font-size: 0.9375rem;
+      line-height: var(--ds-leading-normal);
+    }
+
+    /* --- Progress Bar --- */
+    .ds-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--ds-color-primary);
+      z-index: var(--ds-z-max);
+      transition: width var(--ds-duration-moderate) var(--ds-easing-default);
+    }
+
+    /* --- Section Counter --- */
+    .ds-section__counter {
+      position: absolute;
+      top: var(--ds-spacing-8);
+      right: var(--ds-spacing-8);
+      font-family: var(--ds-font-mono);
+      font-size: var(--ds-font-size-xs);
+      opacity: 0.3;
+    }
+
+    /* --- Scroll Hint --- */
+    .ds-scroll-hint {
+      position: absolute;
+      bottom: var(--ds-spacing-8);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--ds-spacing-2);
+      opacity: var(--ds-opacity-disabled);
+      animation: ds-bounce 2s infinite;
+    }
+
+    .ds-scroll-hint__arrow {
+      width: var(--ds-size-icon-lg);
+      height: var(--ds-size-icon-lg);
+    }
+
+    .ds-scroll-hint__text {
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: var(--ds-tracking-widest);
+    }
+
+    @keyframes ds-bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* --- Fade-in Animations --- */
+    .ds-fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity var(--ds-duration-slower) var(--ds-easing-default), transform var(--ds-duration-slower) var(--ds-easing-default);
+    }
+
+    .ds-fade-in--visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .ds-fade-in--delay-1 { transition-delay: 0.1s; }
+    .ds-fade-in--delay-2 { transition-delay: 0.2s; }
+    .ds-fade-in--delay-3 { transition-delay: 0.3s; }
+    .ds-fade-in--delay-4 { transition-delay: 0.4s; }
+
+    /* --- Two Column Layout --- */
+    .ds-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* --- Scrollable Content Within Section --- */
+    .ds-section__scrollable {
+      max-height: calc(100vh - 12rem);
+      overflow-y: auto;
+      padding-right: var(--ds-spacing-4);
+      scrollbar-width: thin;
+      scrollbar-color: var(--ds-scrollbar-thumb) var(--ds-scrollbar-track);
+    }
+
+    .ds-section__scrollable::-webkit-scrollbar {
+      width: var(--ds-scrollbar-width);
+    }
+
+    .ds-section__scrollable::-webkit-scrollbar-track {
+      background: var(--ds-scrollbar-track);
+    }
+
+    .ds-section__scrollable::-webkit-scrollbar-thumb {
+      background: var(--ds-scrollbar-thumb);
+      border-radius: var(--ds-scrollbar-radius);
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 768px) {
+      .ds-section {
+        padding: 3rem 1.25rem;
+      }
+
+      .ds-two-col {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .ds-color-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+
+      .ds-component-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ds-nav {
+        right: 0.75rem;
+      }
+
+      .ds-nav__dot {
+        width: 8px;
+        height: 8px;
+      }
+
+      .ds-guidelines-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* --- Print --- */
+    @media print {
+      .scroll-container {
+        height: auto;
+        overflow: visible;
+        scroll-snap-type: none;
+      }
+
+      .ds-section {
+        min-height: auto;
+        scroll-snap-align: none;
+        page-break-after: always;
+        padding: 2rem 1rem;
+      }
+
+      .ds-nav,
+      .ds-progress,
+      .ds-scroll-hint {
+        display: none;
+      }
+
+      .ds-fade-in {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Progress Bar -->
+  <div class="ds-progress" id="progressBar"></div>
+
+  <!-- Navigation Dots -->
+  <nav class="ds-nav" id="navDots" aria-label="Section navigation">
+    <!-- Auto-generated by JS -->
+  </nav>
+
+  <!-- Scroll Container -->
+  <div class="scroll-container" id="scrollContainer">
+
+    <!-- ============================================================
+         SECTION 1: COVER
+         ============================================================ -->
+    <section class="ds-section ds-section--dark" data-section="cover" data-theme="dark">
+      <div class="ds-section__inner">
+        <div class="ds-fade-in">
+          <p class="ds-text-label" style="margin-bottom: 1rem;">{{COVER_LABEL}}</p>
+          <h1 class="ds-heading-hero">{{DESIGN_SYSTEM_NAME}}</h1>
+          <p class="ds-text-body" style="opacity: 0.7; margin-bottom: 2rem;">{{COVER_DESCRIPTION}}</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            {{COVER_TAGS}}
+          </div>
+        </div>
+        <span class="ds-section__counter">01 / 07</span>
+      </div>
+      <div class="ds-scroll-hint">
+        <svg class="ds-scroll-hint__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+        </svg>
+        <span class="ds-scroll-hint__text">Scroll</span>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2: COLOR PALETTE
+         ============================================================ -->
+    <section class="ds-section ds-section--light" data-section="colors" data-theme="light">
+      <div class="ds-section__inner">
+        <div class="ds-fade-in">
+          <p class="ds-text-label">{{COLORS_LABEL}}</p>
+          <h2 class="ds-heading-section">{{COLORS_TITLE}}</h2>
+          <p class="ds-text-body">{{COLORS_DESCRIPTION}}</p>
+        </div>
+        <div class="ds-section__scrollable">
+          <div class="ds-fade-in ds-fade-in--delay-1">
+            <h3 class="ds-heading-sub" style="margin-top: 2rem;">{{COLORS_PRIMARY_HEADING}}</h3>
+            <div class="ds-color-grid">
+              {{COLORS_PRIMARY_SWATCHES}}
+            </div>
+          </div>
+          <div class="ds-fade-in ds-fade-in--delay-2">
+            <h3 class="ds-heading-sub" style="margin-top: 2.5rem;">{{COLORS_NEUTRAL_HEADING}}</h3>
+            <div class="ds-color-grid">
+              {{COLORS_NEUTRAL_SWATCHES}}
+            </div>
+          </div>
+          <div class="ds-fade-in ds-fade-in--delay-3">
+            <h3 class="ds-heading-sub" style="margin-top: 2.5rem;">{{COLORS_SEMANTIC_HEADING}}</h3>
+            <div class="ds-color-grid">
+              {{COLORS_SEMANTIC_SWATCHES}}
+            </div>
+          </div>
+        </div>
+        <span class="ds-section__counter">02 / 07</span>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3: TYPOGRAPHY
+         ============================================================ -->
+    <section class="ds-section ds-section--alt" data-section="typography" data-theme="light">
+      <div class="ds-section__inner">
+        <div class="ds-fade-in">
+          <p class="ds-text-label">{{TYPOGRAPHY_LABEL}}</p>
+          <h2 class="ds-heading-section">{{TYPOGRAPHY_TITLE}}</h2>
+          <p class="ds-text-body">{{TYPOGRAPHY_DESCRIPTION}}</p>
+        </div>
+        <div class="ds-section__scrollable">
+          <div class="ds-two-col ds-fade-in ds-fade-in--delay-1" style="margin-top: 2rem;">
+            <div>
+              {{TYPOGRAPHY_SPECIMENS}}
+            </div>
+            <div>
+              {{TYPOGRAPHY_SCALE}}
+            </div>
+          </div>
+        </div>
+        <span class="ds-section__counter">03 / 07</span>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4: DESIGN TOKENS
+         ============================================================ -->
+    <section class="ds-section ds-section--dark" data-section="tokens" data-theme="dark">
+      <div class="ds-section__inner">
+        <div class="ds-fade-in">
+          <p class="ds-text-label">{{TOKENS_LABEL}}</p>
+          <h2 class="ds-heading-section">{{TOKENS_TITLE}}</h2>
+          <p class="ds-text-body" style="opacity: 0.7;">{{TOKENS_DESCRIPTION}}</p>
+        </div>
+        <div class="ds-section__scrollable ds-fade-in ds-fade-in--delay-1">
+          {{TOKENS_TABLES}}
+        </div>
+        <span class="ds-section__counter">04 / 07</span>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5: ATOMIC COMPONENTS
+         ============================================================ -->
+    <section class="ds-section ds-section--light" data-section="components" data-theme="light">
+      <div class="ds-section__inner">
+        <div class="ds-fade-in">
+          <p class="ds-text-label">{{COMPONENTS_LABEL}}</p>
+          <h2 class="ds-heading-section">{{COMPONENTS_TITLE}}</h2>
+          <p class="ds-text-body">{{COMPONENTS_DESCRIPTION}}</p>
+        </div>
+        <div class="ds-section__scrollable ds-fade-in ds-fade-in--delay-1">
+          <div class="ds-component-grid">
+            {{COMPONENTS_CARDS}}
+          </div>
+        </div>
+        <span class="ds-section__counter">05 / 07</span>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 6: COMPOSITE PATTERNS
+         ============================================================ -->
+    <section class="ds-section ds-section--alt" data-section="composites" data-theme="light">
+      <div class="ds-section__inner">
+        <div class="ds-fade-in">
+          <p class="ds-text-label">{{COMPOSITES_LABEL}}</p>
+          <h2 class="ds-heading-section">{{COMPOSITES_TITLE}}</h2>
+          <p class="ds-text-body">{{COMPOSITES_DESCRIPTION}}</p>
+        </div>
+        <div class="ds-section__scrollable ds-fade-in ds-fade-in--delay-1">
+          {{COMPOSITES_SHOWCASES}}
+        </div>
+        <span class="ds-section__counter">06 / 07</span>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 7: GUIDELINES
+         ============================================================ -->
+    <section class="ds-section ds-section--light" data-section="guidelines" data-theme="light">
+      <div class="ds-section__inner">
+        <div class="ds-fade-in">
+          <p class="ds-text-label">{{GUIDELINES_LABEL}}</p>
+          <h2 class="ds-heading-section">{{GUIDELINES_TITLE}}</h2>
+          <p class="ds-text-body">{{GUIDELINES_DESCRIPTION}}</p>
+        </div>
+        <div class="ds-section__scrollable ds-fade-in ds-fade-in--delay-1">
+          <div class="ds-guidelines-grid">
+            {{GUIDELINES_ITEMS}}
+          </div>
+        </div>
+        <span class="ds-section__counter">07 / 07</span>
+      </div>
+    </section>
+
+  </div><!-- end scroll-container -->
+
+  <script>
+    /* ============================================================
+       SCROLL BEHAVIOR & INTERACTIONS
+       Do NOT modify this script block.
+       ============================================================ */
+
+    (function() {
+      'use strict';
+
+      const container = document.getElementById('scrollContainer');
+      const sections = container.querySelectorAll('.ds-section');
+      const navContainer = document.getElementById('navDots');
+      const progressBar = document.getElementById('progressBar');
+      const totalSections = sections.length;
+
+      // --- Build Navigation Dots ---
+      sections.forEach(function(section, index) {
+        const dot = document.createElement('button');
+        dot.className = 'ds-nav__dot';
+        dot.setAttribute('aria-label', 'Go to section ' + (index + 1));
+        dot.setAttribute('data-index', index);
+        dot.setAttribute('data-section-theme', section.getAttribute('data-theme') || 'light');
+        dot.addEventListener('click', function() {
+          section.scrollIntoView({ behavior: 'smooth' });
+        });
+        navContainer.appendChild(dot);
+      });
+
+      const dots = navContainer.querySelectorAll('.ds-nav__dot');
+
+      // --- Intersection Observer for Active Section ---
+      var currentSectionIndex = 0;
+
+      var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            var index = Array.from(sections).indexOf(entry.target);
+            currentSectionIndex = index;
+
+            // Update dots
+            dots.forEach(function(dot, dotIndex) {
+              dot.classList.toggle('ds-nav__dot--active', dotIndex === index);
+              // Adapt dot color to section theme
+              var sectionTheme = sections[index].getAttribute('data-theme');
+              dot.setAttribute('data-section-theme', sectionTheme || 'light');
+            });
+
+            // Update progress bar
+            var progress = ((index + 1) / totalSections) * 100;
+            progressBar.style.width = progress + '%';
+
+            // Trigger fade-in animations
+            var fadeElements = entry.target.querySelectorAll('.ds-fade-in');
+            fadeElements.forEach(function(el) {
+              el.classList.add('ds-fade-in--visible');
+            });
+
+            // Hide scroll hint after first section
+            var hint = entry.target.querySelector('.ds-scroll-hint');
+            if (hint && index > 0) {
+              hint.style.display = 'none';
+            }
+          }
+        });
+      }, {
+        root: container,
+        threshold: 0.5
+      });
+
+      sections.forEach(function(section) {
+        observer.observe(section);
+      });
+
+      // --- Keyboard Navigation ---
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'ArrowDown' || event.key === 'PageDown') {
+          event.preventDefault();
+          if (currentSectionIndex < totalSections - 1) {
+            sections[currentSectionIndex + 1].scrollIntoView({ behavior: 'smooth' });
+          }
+        } else if (event.key === 'ArrowUp' || event.key === 'PageUp') {
+          event.preventDefault();
+          if (currentSectionIndex > 0) {
+            sections[currentSectionIndex - 1].scrollIntoView({ behavior: 'smooth' });
+          }
+        } else if (event.key === 'Home') {
+          event.preventDefault();
+          sections[0].scrollIntoView({ behavior: 'smooth' });
+        } else if (event.key === 'End') {
+          event.preventDefault();
+          sections[totalSections - 1].scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      // --- Touch Damping Enhancement ---
+      var touchStartY = 0;
+      var touchDelta = 0;
+      var isScrolling = false;
+
+      container.addEventListener('touchstart', function(event) {
+        touchStartY = event.touches[0].clientY;
+        isScrolling = false;
+      }, { passive: true });
+
+      container.addEventListener('touchmove', function(event) {
+        touchDelta = touchStartY - event.touches[0].clientY;
+      }, { passive: true });
+
+      container.addEventListener('touchend', function() {
+        if (Math.abs(touchDelta) > 50 && !isScrolling) {
+          isScrolling = true;
+          if (touchDelta > 0 && currentSectionIndex < totalSections - 1) {
+            sections[currentSectionIndex + 1].scrollIntoView({ behavior: 'smooth' });
+          } else if (touchDelta < 0 && currentSectionIndex > 0) {
+            sections[currentSectionIndex - 1].scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+        touchDelta = 0;
+      }, { passive: true });
+
+      // --- Color Swatch Copy-to-Clipboard ---
+      document.querySelectorAll('.ds-color-swatch__value').forEach(function(el) {
+        el.style.cursor = 'pointer';
+        el.setAttribute('title', 'Click to copy');
+        el.addEventListener('click', function() {
+          var text = el.textContent.trim();
+          navigator.clipboard.writeText(text).then(function() {
+            var original = el.textContent;
+            el.textContent = 'Copied!';
+            setTimeout(function() { el.textContent = original; }, 1200);
+          });
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
