@@ -1,0 +1,20 @@
+{
+  "schema": "convallaria.asset-manifest.v1",
+  "project": {
+    "name": "",
+    "slug": "",
+    "createdAt": ""
+  },
+  "inputs": [],
+  "outputs": [],
+  "qualityChecks": [],
+  "tokens": {},
+  "assets": {
+    "logo": {},
+    "images": {},
+    "screenshots": {}
+  },
+  "assumptions": [],
+  "openQuestions": [],
+  "nextActions": []
+}

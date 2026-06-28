@@ -1,137 +1,214 @@
-# Atelier
+# Convallaria
 
-Atelier is an agentic design suite that turns loose creative intent into structured brand systems, production-ready assets, and design handoff.
+<p align="center">
+  <img src="assets/brand/convallaria-mark.png" alt="Convallaria logo" width="420">
+</p>
 
-It is designed to work as both a Codex plugin and a standalone skill. The project acts as a design director for AI-assisted work: it classifies the user's request, routes to the right subskill or reference workflow, uses deterministic scripts for fragile asset operations, and produces artifacts that designers, engineers, and other agents can continue.
+Convallaria cultivates quiet brand systems from first feeling to final assets.
 
-## What Atelier Does
+It is an agentic design suite meant to behave less like a prompt collection and more like a small design studio for agents: route the brief, load the right workflow, keep taste and implementation connected, use deterministic scripts for fragile asset work, and leave behind files another designer, engineer, or agent can continue.
 
-Atelier coordinates professional design work across seven connected areas:
+## What It Does
 
-- **Brand concepting**: turn an early product idea, audience, mood, or positioning note into a usable brand direction.
-- **Design-system extraction**: formalize an existing visual language from screenshots, websites, codebases, documents, or mood descriptions.
-- **Logo and icon production**: guide logo systems, SVG handling, favicon sets, app icons, social avatars, and platform exports.
-- **Image optimization**: compress, convert, resize, and document bitmap assets for delivery.
-- **Design tokens**: translate visual decisions into CSS variables, Tailwind extensions, JSON tokens, and implementation handoff.
-- **UI visual QA**: review interfaces against a design system, screenshot, token set, or brand direction.
-- **Asset packaging**: assemble final brand packs, manifests, and handoff notes for designers, engineers, and agents.
+| Area | Use it for | Typical outputs |
+| --- | --- | --- |
+| Brand concepting | Positioning, voice, audience, visual territories, creative direction | `BRAND.md` |
+| End-to-end brand packs | Full identity flow from rough idea to logo, tokens, exports, and handoff | `BRAND.md`, `LOGO_SPEC.md`, `tokens/`, `logo/`, `asset-manifest.json`, `handoff/` |
+| Design-system extraction | Formalizing an existing visual language from screenshots, sites, code, docs, or mood references | `DESIGN.md`, `report.html` |
+| Logo and icon production | SVG source, logo rules, favicons, app icons, social avatars, platform exports | `LOGO_SPEC.md`, `logo/` |
+| Image optimization | Compression, conversion, responsive variants, metadata stripping | `images/`, `image-manifest.json` |
+| Design tokens | CSS variables, Tailwind extensions, JSON tokens, TypeScript theme objects | `tokens/` |
+| UI visual QA | Screenshot review, token drift checks, responsive visual QA | `DESIGN_QA.md`, `screenshots/` |
+| Asset packaging | Manifests, handoff notes, final brand packs | `asset-manifest.json`, `handoff/` |
 
-## Core Idea
+## Quick Start
 
-Atelier is intentionally modular. The parent skill does not try to hold every design rule in one long instruction file. Instead, it routes work to focused resources:
+Use Convallaria as a Codex plugin through `.codex-plugin/plugin.json`; the plugin exposes `skills/`, and the main skill is `skills/convallaria/SKILL.md`.
+
+Starter prompts:
+
+```text
+Use Convallaria to create a complete brand pack for this product idea.
+Use Convallaria to turn these screenshots into a design system.
+Use Convallaria to produce logo exports and a handoff manifest.
+Use Convallaria to QA this UI against the attached brand system.
+```
+
+For Claude Code, run the local install script once to sync the command entry points into `.claude/`:
+
+```bash
+python3 scripts/conva.py install
+```
+
+Then use commands such as:
+
+```text
+/conva
+/conva-brand
+/conva-logo
+/conva-refine
+/conva-optimize
+```
+
+`conva` is the short command prefix for Convallaria.
+
+For other AI coding tools, point the agent at `AGENTS.md` first, then at `skills/convallaria/SKILL.md`. The parent skill explains how to route a request and which subskill to read. When the tool cannot load Codex or Claude adapters, use the files directly:
+
+```text
+Read AGENTS.md.
+Use skills/convallaria/SKILL.md.
+For this request, route to the relevant subskill under skills/convallaria/subskills/.
+Create or update asset-manifest.json when multiple files are produced.
+```
+
+## Development Loop
+
+Install, update, check, or remove the local adapters with one entry point:
+
+```bash
+python3 scripts/conva.py install
+python3 scripts/conva.py update
+python3 scripts/conva.py doctor
+python3 scripts/conva.py uninstall
+```
+
+Convallaria is not published to a public Codex or Claude marketplace by this repository. It is maintained as a local plugin project: the script syncs Claude Code adapters into `.claude/`, refreshes Codex plugin metadata, and prints the next local Codex plugin command when it can infer one.
+
+Run the project smoke test:
+
+```bash
+python3 scripts/conva.py doctor
+```
+
+Use `--skip-raster` only when an SVG brand asset needs rasterization and the machine lacks CairoSVG, `rsvg-convert`, Inkscape, or macOS QuickLook:
+
+```bash
+python3 scripts/conva.py doctor --skip-raster
+```
+
+After editing the skill, refresh local integration surfaces:
+
+```bash
+python3 scripts/conva.py update
+```
+
+That script:
+
+- syncs root `CLAUDE.md` and `claude/commands/*.md` into `.claude/`
+- updates `.codex-plugin/plugin.json` with a Codex cachebuster version
+- prints the next Codex reinstall command when it can infer the local marketplace
+- optionally runs the smoke test
+
+Codex reads updated skill metadata in a new thread after reinstalling the plugin. Claude Code reads updated `.claude/` command files after the sync step.
+
+## Observable Outcomes
+
+Convallaria is considered runnable when these checks hold:
+
+- The Codex plugin manifest points at `skills/`, and `skills/convallaria/SKILL.md` exists.
+- Claude Code command wrappers are synced into `.claude/commands/`.
+- Generic AI tools can start from `AGENTS.md` and `skills/convallaria/SKILL.md` without needing platform-specific adapters.
+- The router classifies both narrow tasks and complete brand-pack requests.
+- The README script examples run with the documented dependencies.
+- A complete brand-pack workflow can name its required deliverables before generation.
+- Multi-file work records assumptions, generated outputs, quality checks, and next actions in `asset-manifest.json`.
+- Logo and bitmap transforms use deterministic scripts when source assets exist.
+- Durable project files, templates, references, examples, and handoff artifacts are authored in English.
+- Brand outputs pass the craft gate: decisions are specific, traceable, usable in production, and not a pile of disconnected AI-generated copy or images.
+
+## Workflow Shape
+
+Convallaria is intentionally modular. The parent skill routes work to focused subskills instead of loading every design rule at once:
 
 ```text
 User request
   |
   v
-Atelier router
+Convallaria router
   |
-  |-- brand concepting
-  |-- design-system extraction
-  |-- logo system
-  |-- image optimization
-  |-- design tokens
-  |-- UI visual QA
-  `-- asset export
+  |-- concept
+  |-- pack
+  |-- design-refine
+  |-- logo
+  |-- images
+  |-- tokens
+  |-- audit
+  `-- export
 ```
 
-This keeps context lean while still allowing complex multi-step workflows such as:
+Common compositions:
 
 ```text
-brand idea -> brand concept -> logo system -> design tokens -> asset pack
+brand idea -> pack -> concept -> logo -> tokens -> export
 ```
-
-or:
 
 ```text
 screenshots -> design-refine -> DESIGN.md -> token handoff -> visual QA
 ```
 
-## Project Structure
-
 ```text
-atelier/
-|-- .codex-plugin/
-|   `-- plugin.json
-|-- skills/
-|   `-- atelier/
-|       |-- SKILL.md
-|       |-- agents/
-|       |   `-- openai.yaml
-|       |-- references/
-|       |-- scripts/
-|       |-- templates/
-|       `-- subskills/
-|           `-- design-refine/
-`-- claude/
-    |-- CLAUDE.md
-    `-- commands/
+source SVG -> logo -> raster export -> images -> export
 ```
 
-## Bundled Subskill
+## Subskills
 
-Atelier currently vendors one complete subskill:
+Convallaria uses focused subskills for progressive disclosure. Convallaria-owned subskills use concise one-word names:
 
-```text
-skills/atelier/subskills/design-refine/
-```
+- `routing.md`: task classification and workflow composition
+- `subskills/concept/`: brand strategy and visual direction workflow
+- `subskills/pack/`: complete brand creation, delivery, and quality gate
+- `subskills/logo/`: logo, SVG, favicon, app icon, and export workflow
+- `subskills/images/`: bitmap compression and conversion workflow
+- `subskills/tokens/`: token conversion and implementation handoff
+- `subskills/audit/`: visual QA and design-system compliance checks
+- `subskills/export/`: final packaging and handoff workflow
 
-`design-refine` extracts and formalizes design systems from existing material. It produces a structured `DESIGN.md` and a polished HTML report. The vendored copy is treated as a preserved dependency: do not modify it unless the task is explicitly to update that subskill.
-
-## References
-
-Atelier uses focused reference files for progressive disclosure:
-
-- `references/routing.md`: task classification and workflow composition
-- `references/brand-concept.md`: brand strategy and visual direction workflow
-- `references/logo-system.md`: logo, SVG, favicon, app icon, and export workflow
-- `references/image-optimize.md`: bitmap compression and conversion workflow
-- `references/design-tokens.md`: token conversion and implementation handoff
-- `references/ui-visual-qa.md`: visual QA and design-system compliance checks
-- `references/asset-export.md`: final packaging and handoff workflow
+The vendored `skills/convallaria/subskills/design-refine/` folder is treated as a preserved dependency and keeps its upstream name. It should not be modified unless the task is explicitly to update that subskill.
 
 ## Scripts
 
-Atelier includes small deterministic tools for operations that should not be rewritten by hand each time.
-
-### Route a request
+Route a request:
 
 ```bash
-cd skills/atelier
-python3 scripts/route_task.py "extract a design system from these screenshots and export logo pngs"
+cd skills/convallaria
+python3 scripts/route_task.py "create a complete brand pack from positioning to logo, tokens, and handoff assets"
 ```
 
-### Rasterize SVG assets
+Rasterize SVG assets:
 
 ```bash
-cd skills/atelier
-python3 scripts/rasterize_svg.py logo/source/logo.svg --out logo/png --sizes 16 32 64 128 256 512 1024
+cd skills/convallaria
+python3 subskills/logo/scripts/rasterize_svg.py logo/source/logo.svg --out logo/png --sizes 16 32 64 128 256 512 1024
 ```
 
-The SVG rasterizer uses CairoSVG when available, then falls back to `rsvg-convert` or Inkscape.
+The SVG rasterizer uses CairoSVG when available, then falls back to `rsvg-convert`, Inkscape, or macOS QuickLook when available.
 
-### Optimize images
+Optimize images:
 
 ```bash
-cd skills/atelier
-python3 scripts/optimize_images.py input.png --out images --formats webp jpeg --max-width 1600 --quality 82
+cd skills/convallaria
+python3 subskills/images/scripts/optimize_images.py input.png --out images --formats webp jpeg --max-width 1600 --quality 82
 ```
 
-The image optimizer requires Pillow and writes an `image-manifest.json`.
-
-### Validate a manifest
+Validate a manifest:
 
 ```bash
-cd skills/atelier
-python3 scripts/validate_outputs.py asset-manifest.json
+cd skills/convallaria
+python3 subskills/export/scripts/validate_outputs.py asset-manifest.json
+```
+
+Refresh local integrations:
+
+```bash
+python3 scripts/conva.py update
 ```
 
 ## Output Convention
 
-For multi-file deliverables, Atelier uses a project-local output shape:
+For multi-file deliverables, Convallaria uses a project-local output shape:
 
 ```text
-atelier-output/
+convallaria-output/
 |-- BRAND.md
 |-- DESIGN.md
 |-- LOGO_SPEC.md
@@ -144,59 +221,50 @@ atelier-output/
 `-- handoff/
 ```
 
-The `asset-manifest.json` records inputs, outputs, producer steps, assumptions, open questions, and recommended next actions.
+`asset-manifest.json` records inputs, outputs, producer steps, quality checks, assumptions, open questions, and recommended next actions.
 
-## Codex Usage
-
-Atelier can be used as a Codex plugin through:
+## Project Structure
 
 ```text
-.codex-plugin/plugin.json
+convallaria/
+|-- .codex-plugin/
+|   `-- plugin.json
+|-- assets/
+|   `-- brand/
+|       `-- convallaria-mark.png
+|-- CLAUDE.md
+|-- claude/
+|   `-- commands/
+|-- scripts/
+|   |-- conva.py
+|   |-- smoke_test.py
+|   `-- update_convallaria.py
+`-- skills/
+    `-- convallaria/
+        |-- SKILL.md
+        |-- routing.md
+        |-- agents/
+        |-- scripts/
+        |   `-- route_task.py
+        `-- subskills/
+            |-- audit/
+            |-- concept/
+            |-- design-refine/
+            |-- export/
+            |-- images/
+            |-- logo/
+            |-- pack/
+            `-- tokens/
 ```
 
-The plugin exposes the skill directory:
+`.claude/` is a generated local Claude Code adapter directory created by `scripts/conva.py sync`; it is intentionally ignored by git. The Claude Code guide lives at root `CLAUDE.md`, and command adapter sources live under `claude/commands/`.
 
-```text
-skills/
-```
+## Language Policy
 
-The main skill is:
-
-```text
-skills/atelier/SKILL.md
-```
-
-Starter prompts:
-
-- Use Atelier to turn this visual reference into a design system.
-- Use Atelier to create a brand direction and logo asset plan.
-- Use Atelier to optimize and package these design assets.
-
-## Claude Code Usage
-
-Claude Code entry points live in:
-
-```text
-claude/commands/
-```
-
-The commands are lightweight wrappers around the shared Atelier skill:
-
-- `atelier.md`
-- `atelier-brand.md`
-- `atelier-logo.md`
-- `atelier-refine.md`
-- `atelier-optimize.md`
-
-## Language Behavior
-
-Atelier source files are written in English. Generated design deliverables should use the user's requested language. If the user does not specify a language, mirror the language of the user's request.
+Convallaria project files, templates, references, examples, and durable deliverables are authored in English. If a consuming project explicitly requires localization, keep the Convallaria source of truth in English and treat localized copies as secondary exports.
 
 ## Design Philosophy
 
-Atelier treats design as both feeling and system.
+Convallaria treats design as both atmosphere and system.
 
-It should help an agent notice the atmospheric qualities of a brand, but also convert those qualities into files that survive production: tokens, SVGs, exports, manifests, reports, and handoff notes. It favors clear routing, explicit assumptions, reusable templates, and script-backed asset operations.
-
-The goal is not to replace a designer's judgment. The goal is to give AI-assisted design work a better studio: one that can hold mood, structure, craft, and delivery in the same room.
-
+Good agentic design work should be able to hold feeling, constraints, source files, tokens, exports, manifests, and handoff in one continuous thread. The goal is not to replace a designer's judgment. The goal is to give AI-assisted design work a better studio: one where taste is observable, assets are traceable, and delivery is not an afterthought.
