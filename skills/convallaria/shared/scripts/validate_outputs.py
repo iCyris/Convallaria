@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate an Convallaria asset manifest and referenced outputs."""
+"""Validate a Convallaria asset manifest and referenced outputs."""
 
 from __future__ import annotations
 

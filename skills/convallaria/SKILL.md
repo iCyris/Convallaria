@@ -1,6 +1,6 @@
 ---
 name: convallaria
-description: "Agentic design suite for routing professional design work across brand concepting, design-system extraction, logo and icon production, image optimization, token handoff, visual QA, and asset packaging. Use when a user asks Codex to create, refine, inspect, formalize, export, or QA visual identity systems, design systems, logos, images, UI styling, or design handoff assets. Also use as the coordinating parent skill for the bundled refine subskill."
+description: "Agentic design suite for routing professional design work across brand concepting, design-system extraction, logo and icon production, image optimization, token handoff, visual QA, manifests, and delivery handoff. Use when a user asks Codex to create, refine, inspect, formalize, or QA visual identity systems, design systems, logos, images, UI styling, or design handoff assets. Also use as the coordinating parent skill for the bundled refine subskill."
 ---
 
 # Convallaria
@@ -19,8 +19,8 @@ Start by identifying the task family:
 - **Image optimization**: read `subskills/images/SKILL.md`.
 - **Token handoff**: read `subskills/tokens/SKILL.md`.
 - **UI visual QA**: read `subskills/audit/SKILL.md`.
-- **Complete brand pack**: read `subskills/pack/SKILL.md` for brand concept, logo, tokens, asset packaging, and handoff as one workflow.
-- **Asset packaging or multi-step delivery**: read `subskills/export/SKILL.md`.
+- **Complete brand identity work**: coordinate `concept`, `logo`, `tokens`, and `shared/handoff.md` as needed. Do not route to a separate umbrella subskill.
+- **Multi-file delivery**: use `shared/handoff.md`, `shared/templates/asset-manifest.json`, and `shared/scripts/validate_outputs.py`.
 - **Unclear or mixed request**: read `routing.md`, then select a workflow.
 
 For quick classification, run:
@@ -45,9 +45,14 @@ Use the `refine` subskill when the user provides screenshots, a website, a codeb
 
 Read `subskills/concept/SKILL.md` when the task starts from strategy, naming, personality, audience, positioning, visual territories, or early identity exploration. Use `subskills/concept/templates/BRAND.md` as the output structure when the user wants a durable artifact.
 
-### Build a Complete Brand Pack
+### Build a Complete Brand Identity
 
-Read `subskills/pack/SKILL.md` when the user wants the full path from early brand intent to deliverable assets. Produce a coherent package that includes `BRAND.md`, `LOGO_SPEC.md`, token files, logo assets, `asset-manifest.json`, and handoff notes when they are relevant.
+When the user wants the full path from early brand intent to deliverable assets, coordinate focused workflows instead of routing to a separate umbrella subskill:
+
+1. Use `subskills/concept/SKILL.md` for brand promise, audience, voice, visual territories, and production direction.
+2. Use `subskills/logo/SKILL.md` for marks, wordmarks, lockups, usage rules, and platform assets.
+3. Use `subskills/tokens/SKILL.md` for implementation-ready design values.
+4. Use `shared/handoff.md` for `asset-manifest.json`, source-of-truth notes, validation, and handoff writing.
 
 ### Produce Logo and Platform Assets
 
@@ -57,9 +62,9 @@ Read `subskills/logo/SKILL.md` when the user asks for logo concepts, SVG cleanup
 
 Read `subskills/images/SKILL.md` when the user asks for compression, conversion, responsive variants, image manifests, metadata stripping, or delivery optimization. Use `subskills/images/scripts/optimize_images.py` when bitmap assets are present.
 
-### Package a Handoff
+### Prepare a Handoff
 
-Read `subskills/export/SKILL.md` when a task spans multiple outputs or needs a final brand pack. Use `subskills/export/templates/asset-manifest.json` to record source files, outputs, roles, and producer steps.
+Read `shared/handoff.md` when a task spans multiple outputs or needs final delivery notes. Use `shared/templates/asset-manifest.json` to record source files, outputs, roles, and producer steps.
 
 ## Output Conventions
 

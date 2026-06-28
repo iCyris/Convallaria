@@ -12,31 +12,29 @@ Use this guide when the user's request is mixed, ambiguous, or spans more than o
 | Images | compression, conversion, responsive variants, metadata removal | `subskills/images/SKILL.md` | `images/`, `image-manifest.json` |
 | Tokens | CSS variables, Tailwind config, Style Dictionary, theme files | `subskills/tokens/SKILL.md` | `tokens/` |
 | Audit | screenshot review, design-system compliance, responsive visual checks | `subskills/audit/SKILL.md` | `DESIGN_QA.md`, screenshots |
-| Pack | full brand creation from intent to logo, tokens, exports, handoff, and manifest | `subskills/pack/SKILL.md` | `BRAND.md`, `LOGO_SPEC.md`, `tokens/`, `logo/`, `asset-manifest.json`, `handoff/` |
-| Export | final packaging, handoff, manifest, cross-tool delivery | `subskills/export/SKILL.md` | brand pack, handoff docs |
+| Delivery | final manifests, source-of-truth notes, validation, and cross-tool handoff | `shared/handoff.md` | `asset-manifest.json`, `handoff/` |
 
 ## Composition Patterns
 
 ### From a vague product idea to a usable identity
 
-1. `pack`
-2. `concept`
-3. `logo`
-4. `tokens`
-5. `export`
+1. `concept`
+2. `logo`
+3. `tokens`
+4. `shared/handoff.md`
 
 ### From screenshots to an implementation-ready design system
 
 1. `refine`
 2. `tokens`
 3. `audit` if there is an implementation to inspect
-4. `export`
+4. `shared/handoff.md` for multi-file delivery
 
 ### From an SVG logo to platform assets
 
 1. `logo`
 2. `images`
-3. `export`
+3. `shared/handoff.md` for multi-file delivery
 
 ### From an existing app to a design audit
 
@@ -47,7 +45,7 @@ Use this guide when the user's request is mixed, ambiguous, or spans more than o
 ## Routing Rules
 
 - Route to the narrowest resource that can complete the task.
-- Use `pack` when the user wants a complete identity system, not just isolated concept copy or isolated logo exports.
+- For complete identity work, coordinate `concept`, `logo`, `tokens`, and `shared/handoff.md` instead of routing to an umbrella subskill.
 - Load `refine` only for extraction or formalization tasks; it is intentionally large.
 - Use scripts for image transforms, SVG rasterization, and manifest validation.
 - When multiple subskills are needed, create an `asset-manifest.json` early so each step can append outputs.

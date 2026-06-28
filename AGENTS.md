@@ -14,8 +14,9 @@ The project should feel like a careful design tool, not a prompt dump. Changes s
 - The main skill entry is `skills/convallaria/SKILL.md`.
 - Task classification guidance lives in `skills/convallaria/routing.md`.
 - Detailed workflows live as subskills under `skills/convallaria/subskills/`.
-- Reusable output structures live beside their owning subskill in `skills/convallaria/subskills/*/templates/`.
-- Deterministic asset and validation tools live beside their owning subskill in `skills/convallaria/subskills/*/scripts/`.
+- Reusable output structures live beside their owning subskill in `skills/convallaria/subskills/*/templates/` or in `skills/convallaria/shared/templates/` when they apply across workflows.
+- Deterministic asset and validation tools live beside their owning subskill in `skills/convallaria/subskills/*/scripts/` or in `skills/convallaria/shared/scripts/` when they support cross-workflow delivery.
+- Shared delivery protocol files live in `skills/convallaria/shared/`.
 - The parent router helper lives in `skills/convallaria/scripts/route_task.py`.
 - The Claude Code guide lives at root `CLAUDE.md`.
 - Claude Code command adapter sources live in `claude/commands/`.
@@ -79,7 +80,7 @@ python3 scripts/conva.py doctor
 Also run Python syntax checks after editing scripts:
 
 ```bash
-python3 -m py_compile scripts/conva.py scripts/smoke_test.py scripts/update_convallaria.py skills/convallaria/scripts/*.py
+python3 -m py_compile scripts/conva.py scripts/smoke_test.py scripts/update_convallaria.py skills/convallaria/scripts/*.py skills/convallaria/shared/scripts/*.py
 python3 -m py_compile skills/convallaria/subskills/*/scripts/*.py
 ```
 

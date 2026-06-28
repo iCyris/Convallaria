@@ -15,7 +15,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL_DIR = ROOT / "skills" / "convallaria"
-SUBSKILLS = ["audit", "concept", "export", "images", "logo", "pack", "refine", "tokens"]
+SUBSKILLS = ["audit", "concept", "images", "logo", "refine", "tokens"]
 COMPAT_COMMANDS = {
     "brand": "concept",
     "optimize": "images",
@@ -29,6 +29,9 @@ TEXT_GLOBS = [
     "skills/convallaria/SKILL.md",
     "skills/convallaria/agents/*.yaml",
     "skills/convallaria/routing.md",
+    "skills/convallaria/shared/**/*.md",
+    "skills/convallaria/shared/**/*.json",
+    "skills/convallaria/shared/**/*.py",
     "skills/convallaria/subskills/*/SKILL.md",
     "skills/convallaria/subskills/*/scripts/*.py",
     "skills/convallaria/subskills/*/templates/*",
@@ -141,12 +144,12 @@ def check_routes() -> None:
         [
             "python3",
             "scripts/route_task.py",
-            "create a complete brand pack from positioning to logo, tokens, and handoff assets",
+            "create a complete brand identity from positioning to logo, tokens, and handoff assets",
         ],
         cwd=SKILL_DIR,
     )
     complete_routes = json.loads(complete.stdout)["suggestedRoutes"]
-    check(complete_routes[0]["route"] == "pack", "Complete brand pack route did not rank first")
+    check(complete_routes[0]["route"] == "concept", "Complete brand identity route did not rank first")
 
     refine = run(
         [
@@ -200,7 +203,7 @@ def check_manifest_validation() -> None:
             "nextActions": [],
         }
         manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
-        run(["python3", str(SKILL_DIR / "subskills" / "export" / "scripts" / "validate_outputs.py"), str(manifest_path)])
+        run(["python3", str(SKILL_DIR / "shared" / "scripts" / "validate_outputs.py"), str(manifest_path)])
 
 
 def check_token_generation() -> None:

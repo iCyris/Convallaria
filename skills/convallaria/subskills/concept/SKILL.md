@@ -41,4 +41,4 @@ When brand direction is approved, route to:
 
 - `logo` for marks, wordmarks, lockups, and platform assets.
 - `refine` if the brand concept should become a complete design system.
-- `export` when the user wants a packaged brand kit.
+- `shared/handoff.md` when the user needs manifests, source-of-truth notes, and handoff files.

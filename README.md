@@ -28,13 +28,13 @@ Each design operation lives as a focused subskill. Use the parent `convallaria` 
 | Subskill | When | What it does |
 | --- | --- | --- |
 | `concept` | Starting from a product idea, audience, name, tone, or mood | Creates positioning, voice, visual territories, brand strategy, anti-patterns, and a production direction. |
-| `pack` | A complete brand system is needed | Coordinates concept, logo, tokens, exports, manifest, and handoff into one coherent brand package. |
 | `refine` | Existing visuals need to become a design system | Extracts color, type, spacing, component rules, tokens, and an HTML report from screenshots, sites, code, docs, or mood references. |
 | `logo` | Marks, wordmarks, favicons, app icons, or platform exports are needed | Produces logo system guidance, SVG source rules, clear-space rules, variants, and raster export plans. |
 | `images` | Bitmap assets need delivery preparation | Compresses, converts, resizes, strips metadata, and records responsive image variants. |
 | `tokens` | Brand or design decisions need implementation files | Converts decisions into CSS variables, JSON tokens, Tailwind extensions, and TypeScript theme files. |
 | `audit` | A UI needs visual QA against a brand or design system | Reviews screenshots, implementations, tokens, responsive states, and design drift. |
-| `export` | Files need packaging for another designer, engineer, or agent | Builds manifests, handoff notes, source-of-truth maps, and final package structure. |
+
+Complete identity work is coordinated by the parent `convallaria` skill using the focused subskills above. Multi-file delivery uses the shared manifest and handoff protocol in `skills/convallaria/shared/`.
 
 Typical outputs include:
 
@@ -81,8 +81,6 @@ For Claude Code, use the slash commands:
 /conva-images
 /conva-tokens
 /conva-audit
-/conva-pack
-/conva-export
 ```
 
 Compatibility aliases remain available:
@@ -116,7 +114,7 @@ Then ask it to route to the relevant subskill under `skills/convallaria/subskill
 Starter prompts:
 
 ```text
-Use Convallaria to create a complete brand pack for this product idea.
+Use Convallaria to create a complete brand identity for this product idea.
 Use Convallaria to turn these screenshots into a design system.
 Use Convallaria to produce logo exports and a handoff manifest.
 Use Convallaria to QA this UI against the attached brand system.
@@ -126,7 +124,7 @@ Route a request manually:
 
 ```bash
 cd skills/convallaria
-python3 scripts/route_task.py "create a complete brand pack from positioning to logo, tokens, and handoff assets"
+python3 scripts/route_task.py "create a complete brand identity from positioning to logo, tokens, and handoff assets"
 ```
 
 Common deterministic asset commands:
@@ -135,7 +133,7 @@ Common deterministic asset commands:
 cd skills/convallaria
 python3 subskills/logo/scripts/rasterize_svg.py logo/source/logo.svg --out logo/png --sizes 16 32 64 128 256 512 1024
 python3 subskills/images/scripts/optimize_images.py input.png --out images --formats webp jpeg --max-width 1600 --quality 82
-python3 subskills/export/scripts/validate_outputs.py asset-manifest.json
+python3 shared/scripts/validate_outputs.py asset-manifest.json
 ```
 
 The SVG rasterizer uses CairoSVG when available, then falls back to `rsvg-convert`, Inkscape, or macOS QuickLook when available.
@@ -147,7 +145,7 @@ Convallaria subskills can be chained, but each transition should be intentional.
 Common workflows:
 
 ```text
-brand idea -> pack -> concept -> logo -> tokens -> export
+brand idea -> concept -> logo -> tokens -> shared manifest and handoff
 ```
 
 ```text
@@ -155,7 +153,7 @@ screenshots -> refine -> DESIGN.md -> tokens -> audit
 ```
 
 ```text
-source SVG -> logo -> raster export -> images -> export
+source SVG -> logo -> raster export -> images -> shared manifest and handoff
 ```
 
 For multi-file work, create or update `asset-manifest.json` early. It should record inputs, generated outputs, producer steps, quality checks, assumptions, open questions, and next actions.
@@ -225,15 +223,14 @@ Convallaria/
         ├── SKILL.md
         ├── routing.md
         ├── agents/
+        ├── shared/
         ├── scripts/
         │   └── route_task.py
         └── subskills/
             ├── audit/
             ├── concept/
-            ├── export/
             ├── images/
             ├── logo/
-            ├── pack/
             ├── refine/
             └── tokens/
 ```

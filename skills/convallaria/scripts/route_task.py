@@ -19,22 +19,6 @@ class Route:
 
 ROUTES = [
     Route(
-        "pack",
-        "subskills/pack/SKILL.md",
-        ["BRAND.md", "LOGO_SPEC.md", "tokens/", "logo/", "asset-manifest.json", "handoff/"],
-        [
-            "complete brand",
-            "brand pack",
-            "brand kit",
-            "identity system",
-            "from brand to assets",
-            "end to end",
-            "deliverable assets",
-            "brand generation",
-            "brand system",
-        ],
-    ),
-    Route(
         "refine",
         "subskills/refine/SKILL.md",
         ["DESIGN.md", "report.html"],
@@ -56,11 +40,17 @@ ROUTES = [
         [
             "brand",
             "identity",
+            "identity system",
             "positioning",
             "naming",
             "moodboard",
             "visual direction",
             "personality",
+            "complete brand",
+            "brand kit",
+            "from brand to assets",
+            "brand generation",
+            "brand system",
         ],
     ),
     Route(
@@ -115,19 +105,6 @@ ROUTES = [
             "responsive check",
             "design drift",
             "screenshot check",
-        ],
-    ),
-    Route(
-        "export",
-        "subskills/export/SKILL.md",
-        ["asset-manifest.json", "brand-pack/"],
-        [
-            "package",
-            "handoff",
-            "brand pack",
-            "manifest",
-            "zip",
-            "deliver",
         ],
     ),
 ]

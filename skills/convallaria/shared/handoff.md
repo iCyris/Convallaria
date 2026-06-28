@@ -1,16 +1,13 @@
----
-name: export
-description: "Asset export and handoff workflow for packaging multi-file design deliverables, validating manifests, documenting source-of-truth files, and preparing designer, engineer, or agent handoff."
----
+# Shared Delivery Protocol
 
-# Asset Export Workflow
+Use this reference when any Convallaria workflow produces multiple files or needs to be handed to another designer, engineer, or agent.
 
-Use this reference when packaging multi-file design deliverables for another designer, engineer, or agent.
+This is not a user-routed subskill. It is a shared delivery protocol for manifests, source-of-truth notes, validation, and practical handoff writing.
 
 ## Package Shape
 
 ```text
-brand-pack/
+convallaria-output/
 ├── BRAND.md
 ├── DESIGN.md
 ├── LOGO_SPEC.md
@@ -29,7 +26,7 @@ Only include files that exist and are relevant to the task.
 
 ## Manifest
 
-Use `templates/asset-manifest.json` as the base. The manifest should record:
+Use `shared/templates/asset-manifest.json` as the base. The manifest should record:
 
 - project metadata
 - source inputs and their role
@@ -39,10 +36,10 @@ Use `templates/asset-manifest.json` as the base. The manifest should record:
 - unresolved decisions
 - recommended next actions
 
-Validate a manifest with:
+Validate a manifest from the parent `skills/convallaria/` directory with:
 
 ```bash
-python3 subskills/export/scripts/validate_outputs.py asset-manifest.json
+python3 shared/scripts/validate_outputs.py asset-manifest.json
 ```
 
 ## Handoff Writing
