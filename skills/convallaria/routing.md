@@ -8,7 +8,7 @@ Use this guide when the user's request is mixed, ambiguous, or spans more than o
 | --- | --- | --- | --- |
 | Refine | extracting style, reverse-engineering visuals, formalizing existing UI, creating tokens from screenshots or code | `subskills/refine/SKILL.md` | `DESIGN.md`, `report.html` |
 | Concept | naming, positioning, personality, brand voice, creative direction, visual territories | `subskills/concept/SKILL.md` | `BRAND.md` |
-| Logo | logo concepts, SVG cleanup, favicon/app icon export, lockups, clear space | `subskills/logo/SKILL.md` | `LOGO_SPEC.md`, `logo/` |
+| Logo | image-led logo concepts, SVG cleanup, favicon/app icon export, lockups, clear space | `subskills/logo/SKILL.md` | `LOGO_SPEC.md`, `logo/` |
 | Images | compression, conversion, responsive variants, metadata removal | `subskills/images/SKILL.md` | `images/`, `image-manifest.json` |
 | Tokens | CSS variables, Tailwind config, Style Dictionary, theme files | `subskills/tokens/SKILL.md` | `tokens/` |
 | Audit | screenshot review, design-system compliance, responsive visual checks | `subskills/audit/SKILL.md` | `DESIGN_QA.md`, screenshots |
@@ -36,6 +36,13 @@ Use this guide when the user's request is mixed, ambiguous, or spans more than o
 2. `images`
 3. `shared/handoff.md` for multi-file delivery
 
+### From a new logo idea to production assets
+
+1. `concept` if the brand direction is not yet specific
+2. `logo` for generated bitmap concept exploration and usage rules
+3. `images` for delivery-ready bitmap exports
+4. `shared/handoff.md` for multi-file delivery
+
 ### From an existing app to a design audit
 
 1. `refine` if no design system exists
@@ -47,6 +54,7 @@ Use this guide when the user's request is mixed, ambiguous, or spans more than o
 - Route to the narrowest resource that can complete the task.
 - For complete identity work, coordinate `concept`, `logo`, `tokens`, and `shared/handoff.md` instead of routing to an umbrella subskill.
 - Load `refine` only for extraction or formalization tasks; it is intentionally large.
+- Use generated bitmap exploration for brand-new logo concepts; reserve SVG for cleanup, redraw, or production export after a direction is selected.
 - Use scripts for image transforms, SVG rasterization, and manifest validation.
 - When multiple subskills are needed, create an `asset-manifest.json` early so each step can append outputs.
 - Ask a concise clarifying question only when the target deliverable or source asset is impossible to infer.

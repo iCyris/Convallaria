@@ -163,6 +163,15 @@ def check_routes() -> None:
     check(refine_routes[0]["route"] == "refine", "Design extraction route did not rank first")
 
 
+def check_asset_script_help() -> None:
+    rasterize = run(["python3", "subskills/logo/scripts/rasterize_svg.py", "--help"], cwd=SKILL_DIR)
+    check("--timeout" in rasterize.stdout, "Rasterizer help is missing --timeout")
+
+    optimize = run(["python3", "subskills/images/scripts/optimize_images.py", "--help"], cwd=SKILL_DIR)
+    check("--max-pixels" in optimize.stdout, "Image optimizer help is missing --max-pixels")
+    check("--pillow-timeout" in optimize.stdout, "Image optimizer help is missing --pillow-timeout")
+
+
 def check_manifest_validation() -> None:
     with tempfile.TemporaryDirectory(prefix="convallaria-manifest-") as tmp:
         tmp_path = Path(tmp)
@@ -332,6 +341,7 @@ def main() -> int:
         ("readme logo", check_readme_logo),
         ("english sources", check_english_sources),
         ("routes", check_routes),
+        ("asset script help", check_asset_script_help),
         ("manifest", check_manifest_validation),
         ("tokens", check_token_generation),
     ]

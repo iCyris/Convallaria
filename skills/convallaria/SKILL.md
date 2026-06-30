@@ -50,13 +50,13 @@ Read `subskills/concept/SKILL.md` when the task starts from strategy, naming, pe
 When the user wants the full path from early brand intent to deliverable assets, coordinate focused workflows instead of routing to a separate umbrella subskill:
 
 1. Use `subskills/concept/SKILL.md` for brand promise, audience, voice, visual territories, and production direction.
-2. Use `subskills/logo/SKILL.md` for marks, wordmarks, lockups, usage rules, and platform assets.
+2. Use `subskills/logo/SKILL.md` for image-led logo concepts, marks, wordmarks, lockups, usage rules, and platform assets.
 3. Use `subskills/tokens/SKILL.md` for implementation-ready design values.
 4. Use `shared/handoff.md` for `asset-manifest.json`, source-of-truth notes, validation, and handoff writing.
 
 ### Produce Logo and Platform Assets
 
-Read `subskills/logo/SKILL.md` when the user asks for logo concepts, SVG cleanup, favicon sets, app icons, social avatars, or platform-specific logo exports. Use `subskills/logo/scripts/rasterize_svg.py` for SVG-to-PNG export when a source SVG exists.
+Read `subskills/logo/SKILL.md` when the user asks for logo concepts, SVG cleanup, favicon sets, app icons, social avatars, or platform-specific logo exports. For brand-new logo concepts, prefer generated bitmap exploration before production cleanup; use `subskills/logo/scripts/rasterize_svg.py` for SVG-to-PNG export when a source SVG exists.
 
 ### Optimize Images
 

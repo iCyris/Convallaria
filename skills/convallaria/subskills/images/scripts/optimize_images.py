@@ -5,12 +5,41 @@ from __future__ import annotations
 
 import argparse
 import json
+import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 
-def load_pillow():
+DEFAULT_MAX_PIXELS = 40_000_000
+DEFAULT_PILLOW_IMPORT_TIMEOUT_SECONDS = 10
+
+
+def preflight_pillow_import(timeout: int) -> None:
+    if not timeout:
+        return
+
+    try:
+        result = subprocess.run(
+            [sys.executable, "-c", "from PIL import Image, ImageOps"],
+            check=False,
+            text=True,
+            capture_output=True,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError(f"Pillow import timed out after {timeout} seconds.") from exc
+
+    if result.returncode != 0:
+        detail = result.stderr.strip() or result.stdout.strip()
+        message = "Pillow is required. Install it with `python3 -m pip install pillow`."
+        if detail:
+            message = f"{message} Import failed: {detail}"
+        raise RuntimeError(message)
+
+
+def load_pillow(timeout: int):
+    preflight_pillow_import(timeout)
     try:
         from PIL import Image, ImageOps
     except Exception as exc:
@@ -53,8 +82,16 @@ def save_variant(image, target: Path, fmt: str, quality: int) -> None:
     image.save(target, normalized, **save_kwargs)
 
 
-def optimize(paths: list[Path], out_dir: Path, formats: list[str], max_width: int | None, quality: int) -> dict:
-    Image, ImageOps = load_pillow()
+def optimize(
+    paths: list[Path],
+    out_dir: Path,
+    formats: list[str],
+    max_width: int | None,
+    quality: int,
+    max_pixels: int,
+    pillow_timeout: int,
+) -> dict:
+    Image, ImageOps = load_pillow(pillow_timeout)
     out_dir.mkdir(parents=True, exist_ok=True)
     manifest = {
         "schema": "convallaria.image-manifest.v1",
@@ -67,8 +104,15 @@ def optimize(paths: list[Path], out_dir: Path, formats: list[str], max_width: in
             raise FileNotFoundError(f"Image not found: {path}")
         original_bytes = path.stat().st_size
         with Image.open(path) as opened:
+            width, height = opened.size
+            pixel_count = width * height
+            if max_pixels and pixel_count > max_pixels:
+                raise ValueError(
+                    f"Image is {pixel_count:,} pixels, above the {max_pixels:,} pixel limit: {path}. "
+                    "Resize the source first or raise --max-pixels intentionally."
+                )
+            print(f"processing: {path} ({width}x{height})", file=sys.stderr)
             image = ImageOps.exif_transpose(opened)
-            width, height = image.size
             target_width = min(width, max_width) if max_width else width
             if target_width != width:
                 ratio = target_width / width
@@ -80,6 +124,7 @@ def optimize(paths: list[Path], out_dir: Path, formats: list[str], max_width: in
             for fmt in formats:
                 fmt = fmt.lower()
                 target = output_path(out_dir, path, target_width, fmt)
+                print(f"writing: {target}", file=sys.stderr)
                 save_variant(image.copy(), target, fmt, quality)
                 output_bytes = target.stat().st_size
                 manifest["outputs"].append(
@@ -109,11 +154,31 @@ def main() -> int:
     parser.add_argument("--out", type=Path, default=Path("images"))
     parser.add_argument("--formats", nargs="+", default=["webp"], choices=["png", "jpeg", "webp", "avif"])
     parser.add_argument("--max-width", type=int)
+    parser.add_argument(
+        "--max-pixels",
+        type=int,
+        default=DEFAULT_MAX_PIXELS,
+        help="Reject source images above this pixel count unless explicitly raised. Use 0 to disable.",
+    )
+    parser.add_argument(
+        "--pillow-timeout",
+        type=int,
+        default=DEFAULT_PILLOW_IMPORT_TIMEOUT_SECONDS,
+        help="Maximum seconds to wait for Pillow to import. Use 0 to disable.",
+    )
     parser.add_argument("--quality", type=int, default=82)
     args = parser.parse_args()
 
     try:
-        manifest = optimize(args.images, args.out, args.formats, args.max_width, args.quality)
+        manifest = optimize(
+            args.images,
+            args.out,
+            args.formats,
+            args.max_width,
+            args.quality,
+            args.max_pixels,
+            args.pillow_timeout,
+        )
     except Exception as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1

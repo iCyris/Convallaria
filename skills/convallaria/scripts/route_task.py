@@ -59,6 +59,10 @@ ROUTES = [
         ["LOGO_SPEC.md", "logo/"],
         [
             "logo",
+            "logo concept",
+            "generated logo",
+            "bitmap logo",
+            "image-led logo",
             "wordmark",
             "mark",
             "favicon",

@@ -42,7 +42,7 @@ Use `/conva` as the front door. Describe the design task in plain language and l
 
 - `BRAND.md` for positioning, voice, visual direction, and production decisions
 - `DESIGN.md` and `report.html` for extracted design systems
-- `LOGO_SPEC.md` and logo export guidance or assets
+- `LOGO_SPEC.md`, image-led logo concepts, export guidance, or assets
 - `tokens/` with CSS, JSON, Tailwind, and TypeScript theme files
 - optimized images and image manifests when bitmap assets are provided
 - `asset-manifest.json` for traceable multi-file handoff
@@ -55,7 +55,7 @@ Each design operation lives as a focused subskill. Most users should start with 
 | --- | --- | --- |
 | `concept` | Starting from a product idea, audience, name, tone, or mood | Creates positioning, voice, visual territories, brand strategy, anti-patterns, and a production direction. |
 | `refine` | Existing visuals need to become a design system | Extracts color, type, spacing, component rules, tokens, and an HTML report from screenshots, sites, code, docs, or mood references. |
-| `logo` | Marks, wordmarks, favicons, app icons, or platform exports are needed | Produces logo system guidance, SVG source rules, clear-space rules, variants, and raster export plans. |
+| `logo` | Marks, wordmarks, favicons, app icons, or platform exports are needed | Produces image-led logo concepts, source rules, clear-space rules, variants, and raster export plans. |
 | `images` | Bitmap assets need delivery preparation | Compresses, converts, resizes, strips metadata, and records responsive image variants. |
 | `tokens` | Brand or design decisions need implementation files | Converts decisions into CSS variables, JSON tokens, Tailwind extensions, and TypeScript theme files. |
 | `audit` | A UI needs visual QA against a brand or design system | Reviews screenshots, implementations, tokens, responsive states, and design drift. |
@@ -147,7 +147,7 @@ Start with `/conva` and a plain-language brief:
 ```text
 /conva Create a complete brand identity for this product idea.
 /conva Turn these screenshots into a design system.
-/conva Produce logo exports and a handoff manifest.
+/conva Produce logo concepts, exports, and a handoff manifest.
 /conva QA this UI against the attached brand system.
 ```
 
@@ -184,7 +184,11 @@ screenshots -> refine -> DESIGN.md -> tokens -> audit
 ```
 
 ```text
-source SVG -> logo -> raster export -> images -> shared manifest and handoff
+new logo idea -> generated logo concepts -> logo production -> images -> shared manifest and handoff
+```
+
+```text
+source SVG -> logo cleanup -> raster export -> images -> shared manifest and handoff
 ```
 
 For multi-file work, create or update `asset-manifest.json` early. It should record inputs, generated outputs, producer steps, quality checks, assumptions, open questions, and next actions.

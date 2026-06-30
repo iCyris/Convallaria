@@ -34,6 +34,8 @@ python3 subskills/images/scripts/optimize_images.py input-a.png input-b.jpg --ou
 
 The script requires Pillow. If Pillow is unavailable, report that dependency and keep the source files unchanged.
 
+For large generated assets, avoid ad hoc per-pixel loops inside an agent command. Use the optimization script, set `--max-width` for previews and delivery variants, and raise `--max-pixels` only when the large source is intentional.
+
 ## Quality Criteria
 
 - Do not upscale raster images unless explicitly requested.

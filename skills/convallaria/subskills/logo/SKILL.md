@@ -1,11 +1,11 @@
 ---
 name: logo
-description: "Logo and icon production workflow for concepts, SVG cleanup, lockups, favicons, app icons, social avatars, platform exports, clear-space rules, and logo QA."
+description: "Logo and icon production workflow for image-led concepts, SVG cleanup, lockups, favicons, app icons, social avatars, platform exports, clear-space rules, and logo QA."
 ---
 
 # Logo System Workflow
 
-Use when: a user needs a mark, wordmark, lockup, favicon, app icon, social avatar, SVG cleanup, or platform export.
+Use when: a user needs a mark, wordmark, lockup, favicon, app icon, social avatar, image-led logo concepts, SVG cleanup, or platform export.
 Needs: brand direction, an existing source logo or SVG, or enough context to propose logo concepts honestly.
 Produces: `LOGO_SPEC.md` and logo assets when source files are available.
 Done when: source-of-truth files, usage rules, minimum sizes, export paths, and manifest entries are clear.
@@ -25,8 +25,19 @@ Use `templates/LOGO_SPEC.md` when producing a logo system. A complete logo packa
 - misuse rules
 - platform export set
 
+## Concept Generation Rules
+
+- For brand-new logo concepts, prefer generated bitmap concept images first. Use image generation or supplied visual references to explore proportion, gesture, material, and finish before committing to production geometry.
+- Do not hand-write decorative SVG as the primary creative method unless the user explicitly asks for SVG-only work or the mark is intentionally simple geometric production art.
+- Keep generated concepts in `logo/concepts/` with descriptive names and enough variants to compare direction, not tiny changes.
+- Evaluate concepts for recognizability, distinct silhouette, small-size legibility, cultural fit, and whether any text or letterforms are clean enough to keep.
+- After a concept direction is chosen, prepare production assets from the best source available: cleaned bitmap, vector redraw, traced source, or existing SVG. Treat SVG as a production and export format, not the default ideation canvas.
+- For bitmap cleanup and preview variants, avoid long inline per-pixel processing in the agent session. Use `subskills/images/scripts/optimize_images.py` for deterministic resizing/conversion, and keep large-source processing explicit with size limits.
+- Record concept prompts, selected direction, rejected directions, and source-to-output decisions in `LOGO_SPEC.md` and `asset-manifest.json`.
+
 ## SVG Source Rules
 
+- Use SVG when there is an existing SVG to clean up, a selected concept needs vector production, or platform exports require vector source.
 - Keep SVG source files editable and semantic.
 - Preserve a transparent background unless the target platform requires a filled background.
 - Use `viewBox` and avoid fixed-only sizing.
